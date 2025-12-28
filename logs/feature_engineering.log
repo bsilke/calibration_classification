@@ -1,0 +1,28 @@
+2025-12-20 23:24:41 | INFO | ======================================================================
+2025-12-20 23:24:41 | INFO | FEATURE ENGINEERING SESSION STARTED: 2025-12-20T23:24:41.001983
+2025-12-20 23:24:41 | INFO | ======================================================================
+2025-12-20 23:24:41 | INFO | Loading preprocessed data from data/interim/
+2025-12-20 23:24:41 | INFO | Data loaded:
+2025-12-20 23:24:41 | INFO |   Train: (1129, 21)
+2025-12-20 23:24:41 | INFO |   Val:   (377, 21)
+2025-12-20 23:24:41 | INFO |   Test:  (377, 21)
+2025-12-20 23:24:41 | INFO | Encoding target variable with LabelEncoder
+2025-12-20 23:24:41 | INFO | Target classes: ['No', 'Not Specified', 'Partial', 'Yes']
+2025-12-20 23:24:41 | INFO | Creating ColumnTransformer preprocessor
+2025-12-20 23:24:41 | INFO | Numeric features (passthrough): ['End_target_year', 'Interim_target_year', 'log_revenue', 'log_employees', 'Interim_target_year_missing']
+2025-12-20 23:24:41 | INFO | Ordinal features (11): ['Published_plan', 'Private_company', 'Race_to_zero_member', 'Separate_removal_target', 'Historical_emissions', 'Accountability_delivery', 'Carbon_credits', 'GHGs_covered', 'Reporting_mechanism', 'Status_of_end_target', 'Planning_removals']
+2025-12-20 23:24:41 | INFO | Nominal features (one-hot): ['Geographic_region', 'Industry', 'End_target', 'Interim_target']
+2025-12-20 23:24:41 | INFO | High-cardinality feature: Country → top 10 + Other
+2025-12-20 23:24:41 | INFO | Fitting preprocessor on training data...
+2025-12-20 23:24:41 | INFO | Top 10 countries learned: ['USA', 'CHN', 'JPN', 'GBR', 'DEU', 'KOR', 'CAN', 'HKG', 'FRA', 'IND']
+2025-12-20 23:24:41 | INFO | Transforming datasets...
+2025-12-20 23:24:41 | INFO | Encoded shapes:
+2025-12-20 23:24:41 | INFO |   Train: (1129, 70)
+2025-12-20 23:24:41 | INFO |   Val:   (377, 70)
+2025-12-20 23:24:41 | INFO |   Test:  (377, 70)
+2025-12-20 23:24:41 | INFO | ✅ Verification passed: 70 columns across all splits
+2025-12-20 23:24:41 | INFO | Total encoded features: 70
+2025-12-20 23:24:41 | INFO | Feature name examples: ['num__End_target_year', 'num__Interim_target_year', 'num__log_revenue', 'num__log_employees', 'num__Interim_target_year_missing']...
+2025-12-20 23:24:41 | INFO | ======================================================================
+2025-12-20 23:24:41 | INFO | FEATURE ENGINEERING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 23:24:41 | INFO | ======================================================================

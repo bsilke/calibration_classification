@@ -1,0 +1,381 @@
+# Preprocessing Configuration - Missingness Analysis & Imputation Strategy
+# =========================================================================
+# Project: Net Zero Tracker - Scope_3_coverage Classification
+# Created: 2025-12-20
+# 
+# This file documents the missingness type and imputation strategy for each
+# feature, with rationale based on business meaning and statistical analysis.
+
+# -------------------------------------------------------------------------
+# MISSINGNESS TYPES REFERENCE
+# -------------------------------------------------------------------------
+# MCAR (Missing Completely At Random):
+#   - Missingness is random, unrelated to any data (observed or unobserved)
+#   - Example: Random data entry errors, random sensor failures
+#   - Safe to impute with mean/median without introducing bias
+#
+# MAR (Missing At Random):
+#   - Missingness depends on OTHER observed variables, not the missing value itself
+#   - Example: Revenue missing more often for private companies
+#   - Can use group-based imputation (condition on related variables)
+#
+# MNAR (Missing Not At Random):
+#   - Missingness depends on the UNOBSERVED value itself
+#   - Example: Low emissions not reported because company hasn't measured
+#   - Imputation may introduce bias; consider indicator variables
+
+# =========================================================================
+# FEATURE MISSINGNESS ANALYSIS & IMPUTATION STRATEGIES
+# =========================================================================
+
+features:
+
+  # -----------------------------------------------------------------------
+  # CATEGORICAL FEATURES - POLICY/TARGET INFORMATION
+  # -----------------------------------------------------------------------
+  
+  Country:
+    missing_rate: "0%"
+    missingness_type: "N/A"
+    imputation_strategy: "None required"
+    rationale: >
+      Country is always recorded for companies in the Net Zero Tracker.
+      No missing values expected as it's a core identifier.
+
+  Geographic_region:
+    missing_rate: "0%"
+    missingness_type: "N/A"
+    imputation_strategy: "None required"
+    rationale: >
+      Derived from Country. Always present when Country is present.
+
+  Private_company:
+    missing_rate: "~0-1%"
+    missingness_type: "MCAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Whether a company is private vs. public is typically known from external
+      data sources. Missing values are likely random data entry gaps. Impute
+      with industry-group mode since some industries have higher private
+      company rates (e.g., Services vs. Fossil Fuels).
+
+  End_target:
+    missing_rate: "0.1%"
+    missing_count: 1
+    missingness_type: "MCAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Only 1 missing value - likely a random data entry gap. Imputed with
+      industry mode for consistency with other categorical features.
+
+  End_target_year:
+    missing_rate: "12.7%"
+    missing_count: 143
+    missingness_type: "MAR"
+    imputation_strategy: "group_median"
+    imputation_group: "Industry"
+    rationale: >
+      Target years cluster by industry due to sector-specific regulations and
+      pledges (e.g., 2050 for most, 2030 for some power generators). Missing
+      when companies haven't set specific timelines. Industry median preserves
+      sector norms. Higher missingness suggests companies without clear targets.
+    notes: >
+      Values outside 2000-2100 are treated as outliers and filtered.
+
+  Status_of_end_target:
+    missing_rate: "12.7%"
+    missing_count: 143
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Missingness perfectly correlates with End_target_year (same 143 rows) -
+      companies without target years also lack status. MAR since missingness
+      depends on whether a target was set. Industry mode imputes typical
+      commitment levels per sector.
+
+  Interim_target:
+    missing_rate: "2.2%"
+    missing_count: 25
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Low missingness. Interim targets are more common in highly regulated
+      industries. Missing may indicate lack of near-term planning.
+
+  Interim_target_year:
+    missing_rate: "33.5%"
+    missing_count: 378
+    missingness_type: "MAR → potential MNAR"
+    imputation_strategy: "group_median"
+    imputation_group: "Industry"
+    rationale: >
+      Highest missingness (33.5%). Many companies have interim targets but
+      no specific year - could be MNAR (vague targets). Industry median
+      preserves sector-typical timelines.
+    missingness_indicator: true
+    indicator_name: "Interim_target_year_missing"
+    indicator_rationale: >
+      With 33.5% missing, the fact that a company didn't specify an interim
+      target year may itself be predictive. Companies with vague commitments
+      (no specific year) might be less likely to report Scope 3 comprehensively.
+      Binary indicator (1=missing, 0=present) created BEFORE imputation.
+
+  GHGs_covered:
+    missing_rate: "3.1%"
+    missing_count: 35
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Greenhouse gas coverage depends on industry emission profiles. Fossil
+      Fuels and Materials typically cover CO2 + other GHGs, while Services
+      may focus on CO2 only. Low missingness.
+
+  Published_plan:
+    missing_rate: "2.0%"
+    missing_count: 23
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Plan publication rates vary by industry visibility and regulatory
+      requirements. Missing likely indicates ambiguity rather than no plan.
+      Industry mode captures sector norms.
+
+  Reporting_mechanism:
+    missing_rate: "1.4%"
+    missing_count: 16
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Very low missingness. Reporting mechanisms are influenced by industry
+      standards. Missing when reporting status is unclear.
+
+  Accountability_delivery:
+    missing_rate: "2.0%"
+    missing_count: 23
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Low missingness. Accountability structures vary by corporate governance
+      norms in each industry. Industry mode reflects sector-typical governance.
+
+  Carbon_credits:
+    missing_rate: "3.5%"
+    missing_count: 39
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Carbon credit usage varies significantly by industry (high for Fossil
+      Fuels and Aviation, low for Services). Missingness correlates with
+      industry and emissions intensity.
+
+  Separate_removal_target:
+    missing_rate: "4.5%"
+    missing_count: 51
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Removal targets are more common in heavy-emission industries. Missing
+      typically means "No" in practice, but industry mode is more defensible.
+
+  Planning_removals:
+    missing_rate: "3.5%"
+    missing_count: 39
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Similar to Separate_removal_target. Removal planning varies by industry
+      emission profile and technological feasibility.
+
+  Historical_emissions:
+    missing_rate: "5.2%"
+    missing_count: 59
+    missingness_type: "MAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Historical emissions accountability depends on industry legacy and
+      regulatory requirements. Older industries may have more historical
+      emission focus.
+
+  Race_to_zero_member:
+    missing_rate: "~0-1%"
+    missingness_type: "MCAR"
+    imputation_strategy: "group_mode"
+    imputation_group: "Industry"
+    rationale: >
+      Membership in Race to Zero is a binary fact, typically well-documented.
+      Missing values are likely random data gaps. Could also impute with
+      global mode ("No").
+
+  Industry:
+    missing_rate: "~0%"
+    missingness_type: "N/A"
+    imputation_strategy: "None (rows dropped if missing)"
+    rationale: >
+      Industry is the grouping column for all other imputations. Rows with
+      missing Industry are dropped during preprocessing since we cannot
+      apply group-based imputation without this key variable.
+    notes: >
+      Only ~8 rows typically dropped for missing Industry.
+
+  # -----------------------------------------------------------------------
+  # NUMERIC FEATURES - COMPANY CHARACTERISTICS
+  # -----------------------------------------------------------------------
+
+  Company_annual_revenue:
+    missing_rate: "0.3%"
+    missing_count: 3
+    missingness_type: "MAR"
+    imputation_strategy: "group_median"
+    imputation_group: "Industry"
+    rationale: >
+      Very low missingness (only 3 rows). Revenue is MAR - likely random
+      data gaps since most companies report. Industry median is appropriate
+      because revenue distributions vary dramatically by sector.
+    notes: >
+      Log-transformed after imputation to normalize distribution.
+      Extreme outliers (>$1 trillion) filtered as data errors.
+    consider_indicator: false
+    indicator_rationale: >
+      With only 0.3% missing, a missingness indicator would add no value.
+
+  Employees:
+    missing_rate: "5.8%"
+    missing_count: 65
+    missingness_type: "MAR"
+    imputation_strategy: "group_median"
+    imputation_group: "Industry"
+    rationale: >
+      Moderate missingness. Employee count is MAR - correlates with company
+      size, industry norms, and reporting requirements. Industries like
+      Services have vastly different employee counts than Materials or
+      Manufacturing. Industry median captures sector-specific scales.
+    notes: >
+      Log-transformed after imputation to normalize distribution.
+    consider_indicator: false
+    indicator_rationale: >
+      Employee count missingness is less likely to correlate with Scope 3
+      coverage transparency compared to target-related features.
+
+# =========================================================================
+# GLOBAL IMPUTATION CONFIGURATION
+# =========================================================================
+
+global_config:
+  imputation_group_column: "Industry"
+  fallback_strategy: "global_median or global_mode"
+  rationale: >
+    Industry is chosen as the grouping column because:
+    1. It strongly correlates with emission profiles and reporting behaviors
+    2. It influences target-setting patterns (regulatory pressure varies by sector)
+    3. It affects company scale distributions (revenue, employees)
+    4. It's always available after initial filtering (rows with missing Industry dropped)
+
+# =========================================================================
+# DROPPED FEATURES (NOT IMPUTED)
+# =========================================================================
+
+dropped_features:
+  
+  GHG_emissions:
+    reason: "High missingness (>50%)"
+    missing_rate: "~60-70%"
+    missingness_type: "MNAR"
+    rationale: >
+      Companies that haven't measured or don't report emissions are missing.
+      This is MNAR - the value is missing precisely because it doesn't exist
+      or is unfavorable. Imputation would introduce significant bias.
+      Dropped per missing_threshold configuration.
+
+  Scope_1_coverage:
+    reason: "Target leakage"
+    rationale: >
+      Decided simultaneously with Scope_3_coverage during emissions reporting.
+      Including would artificially inflate model performance. Not a missingness
+      issue - dropped for methodological reasons.
+
+  Scope_2_coverage:
+    reason: "Target leakage"
+    rationale: >
+      Same as Scope_1_coverage. These scope coverage decisions are made
+      together as part of the same corporate disclosure process.
+
+# =========================================================================
+# SUMMARY & RECOMMENDATIONS
+# =========================================================================
+
+summary:
+  total_features: 20  # After dropping leakage columns
+  features_with_missing: 15
+  total_missing_train: 1043  # Total missing values in training set before imputation
+  imputation_approach: "Industry-group median (numeric) / mode (categorical)"
+  
+  missingness_breakdown:
+    high_missing:  # >10%
+      - "Interim_target_year: 33.5% (378 rows) - potential MNAR"
+      - "End_target_year: 12.7% (143 rows)"
+      - "Status_of_end_target: 12.7% (143 rows)"
+    moderate_missing:  # 2-10%
+      - "Employees: 5.8% (65 rows)"
+      - "Historical_emissions: 5.2% (59 rows)"
+      - "Separate_removal_target: 4.5% (51 rows)"
+      - "Carbon_credits: 3.5% (39 rows)"
+      - "Planning_removals: 3.5% (39 rows)"
+      - "GHGs_covered: 3.1% (35 rows)"
+      - "Interim_target: 2.2% (25 rows)"
+      - "Published_plan: 2.0% (23 rows)"
+      - "Accountability_delivery: 2.0% (23 rows)"
+    low_missing:  # <2%
+      - "Reporting_mechanism: 1.4% (16 rows)"
+      - "Company_annual_revenue: 0.3% (3 rows)"
+      - "End_target: 0.1% (1 row)"
+  
+  key_decisions:
+    - decision: "Use Industry as grouping column"
+      rationale: >
+        Industry captures the most variation in both missingness patterns
+        and feature distributions. Companies in the same industry face
+        similar regulatory environments and market pressures.
+    
+    - decision: "Group-based imputation instead of KNN"
+      rationale: >
+        KNN imputation would be computationally expensive and may not
+        improve over industry-group imputation given the strong industry
+        clustering. Industry groups already capture the primary source
+        of variation.
+    
+    - decision: "No missingness indicators (for now)"
+      rationale: >
+        Current missingness is primarily MAR (depends on Industry), not
+        MNAR. Adding indicators would increase dimensionality with limited
+        expected benefit. Could reconsider for revenue_missing if model
+        underperforms on certain segments.
+    
+    - decision: "Drop GHG_emissions rather than impute"
+      rationale: >
+        60%+ missingness with likely MNAR pattern. Any imputation would
+        be unreliable and potentially harmful to model performance.
+
+future_considerations:
+  - description: "Add revenue_missing indicator"
+    priority: "Low"
+    trigger: "If model shows poor performance for private/small companies"
+  
+  - description: "Consider MICE (Multiple Imputation by Chained Equations)"
+    priority: "Low"
+    trigger: "If feature selection shows strong cross-feature dependencies"
+  
+  - description: "Validate imputation with holdout analysis"
+    priority: "Medium"
+    trigger: "Before final model deployment"

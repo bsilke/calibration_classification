@@ -1,0 +1,56 @@
+# Final Features for Scope_3_coverage Classification
+# ====================================================
+# Generated: 2025-12-20
+# Total Features: 21
+# Target Variable: Scope_3_coverage
+#
+# These features are used in the modeling pipeline after preprocessing.
+# See preprocessing_config.yml for imputation strategies and rationale.
+
+# -----------------------------------------------------------------------------
+# CATEGORICAL FEATURES (18)
+# -----------------------------------------------------------------------------
+Country
+Geographic_region
+Private_company
+End_target
+Status_of_end_target
+Interim_target
+GHGs_covered
+Published_plan
+Reporting_mechanism
+Accountability_delivery
+Carbon_credits
+Separate_removal_target
+Planning_removals
+Historical_emissions
+Race_to_zero_member
+Industry
+
+# -----------------------------------------------------------------------------
+# NUMERIC FEATURES (3)
+# -----------------------------------------------------------------------------
+End_target_year
+Interim_target_year
+log_revenue
+log_employees
+
+# -----------------------------------------------------------------------------
+# ENGINEERED FEATURES (1)
+# -----------------------------------------------------------------------------
+# Missingness indicator - captures potential MNAR pattern
+Interim_target_year_missing
+
+# -----------------------------------------------------------------------------
+# DROPPED FEATURES (NOT INCLUDED)
+# -----------------------------------------------------------------------------
+# Scope_1_coverage  - TARGET LEAKAGE (decided with Scope_3_coverage)
+# Scope_2_coverage  - TARGET LEAKAGE (decided with Scope_3_coverage)
+# GHG_emissions     - >50% missing (MNAR)
+# Company_annual_revenue - Replaced by log_revenue
+# Employees         - Replaced by log_employees
+
+# -----------------------------------------------------------------------------
+# TARGET VARIABLE
+# -----------------------------------------------------------------------------
+# Scope_3_coverage  - 4 classes: Yes, No, Partial, Not Specified

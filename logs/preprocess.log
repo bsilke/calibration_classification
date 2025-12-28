@@ -1,0 +1,787 @@
+2025-12-20 14:12:46 | INFO | ======================================================================
+2025-12-20 14:12:46 | INFO | LOGGING SESSION STARTED: 2025-12-20T14:12:46.647103
+2025-12-20 14:12:46 | INFO | ======================================================================
+2025-12-20 14:12:46 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 14:12:46 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 14:12:46 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 14:12:46 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 14:12:46 | INFO | Data integrity verified ✓
+2025-12-20 14:12:46 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 14:12:46 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 14:12:46 | INFO | Raw Data missing values: 151072
+2025-12-20 14:12:46 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Load Raw Data (0.11s)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 14:12:46 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 14:12:46 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 14:12:46 | INFO |   Details: Kept 26 columns
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Filter to Companies (0.01s)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 14:12:46 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 14:12:46 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 14:12:46 | INFO | Converted Employees to numeric
+2025-12-20 14:12:46 | INFO | Dropped 193 rows with missing target
+2025-12-20 14:12:46 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 14:12:46 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 14:12:46 | INFO |   Before: (2086, 26) → After: (1885, 25)
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 14:12:46 | INFO | Features: 22 columns
+2025-12-20 14:12:46 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 366, 'No': 347}
+2025-12-20 14:12:46 | INFO | Training set:   1131 rows (60.0%)
+2025-12-20 14:12:46 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 14:12:46 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.01s)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 14:12:46 | INFO | Imputation stats calculated for 4 numeric, 17 categorical columns
+2025-12-20 14:12:46 | INFO | Grouping by: Industry
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 14:12:46 | INFO | Train: 1043 → 0 missing values
+2025-12-20 14:12:46 | INFO | Val: 365 → 0 missing values
+2025-12-20 14:12:46 | INFO | Test: 352 → 0 missing values
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Apply Imputation (0.12s)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 14:12:46 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 14:12:46 | INFO | Log transformed: Employees → log_employees
+2025-12-20 14:12:46 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 14:12:46 | INFO | Log transformed: Employees → log_employees
+2025-12-20 14:12:46 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 14:12:46 | INFO | Log transformed: Employees → log_employees
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 14:12:46 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 14:12:46 | INFO | Saved: data/preprocessed/train.csv ((1131, 23))
+2025-12-20 14:12:46 | INFO | Saved: data/preprocessed/val.csv ((377, 23))
+2025-12-20 14:12:46 | INFO | Saved: data/preprocessed/test.csv ((377, 23))
+2025-12-20 14:12:46 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 14:12:46 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.01s)
+2025-12-20 14:12:46 | INFO | ======================================================================
+2025-12-20 14:12:46 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 14:12:46 | INFO | ======================================================================
+2025-12-20 15:40:37 | INFO | ======================================================================
+2025-12-20 15:40:37 | INFO | LOGGING SESSION STARTED: 2025-12-20T15:40:37.298650
+2025-12-20 15:40:37 | INFO | ======================================================================
+2025-12-20 15:40:37 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 15:40:37 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 15:40:37 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 15:40:37 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 15:40:37 | INFO | Data integrity verified ✓
+2025-12-20 15:40:37 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 15:40:37 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 15:40:37 | INFO | Raw Data missing values: 151072
+2025-12-20 15:40:37 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Load Raw Data (0.17s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 15:40:37 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 15:40:37 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 15:40:37 | INFO |   Details: Kept 26 columns
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Filter to Companies (0.01s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 15:40:37 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 15:40:37 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 15:40:37 | INFO | Converted Employees to numeric
+2025-12-20 15:40:37 | INFO | Dropped 193 rows with missing target
+2025-12-20 15:40:37 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 15:40:37 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 15:40:37 | INFO |   Before: (2086, 26) → After: (1885, 25)
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 15:40:37 | INFO | Features: 22 columns
+2025-12-20 15:40:37 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 366, 'No': 347}
+2025-12-20 15:40:37 | INFO | Training set:   1131 rows (60.0%)
+2025-12-20 15:40:37 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 15:40:37 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.01s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 15:40:37 | INFO | Imputation stats calculated for 4 numeric, 17 categorical columns
+2025-12-20 15:40:37 | INFO | Grouping by: Industry
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 15:40:37 | INFO | Train: 1043 → 0 missing values
+2025-12-20 15:40:37 | INFO | Val: 365 → 0 missing values
+2025-12-20 15:40:37 | INFO | Test: 352 → 0 missing values
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Apply Imputation (0.11s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 15:40:37 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:40:37 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:40:37 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:40:37 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:40:37 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:40:37 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Date-Time Feature Engineering
+2025-12-20 15:40:37 | INFO | Reference year for temporal features: 2025
+2025-12-20 15:40:37 | INFO | Reference date: 2025-12-20
+2025-12-20 15:40:37 | INFO | Created: years_to_end_target (range: -1025 to 45)
+2025-12-20 15:40:37 | INFO | Created: years_to_interim_target (range: -5 to 25)
+2025-12-20 15:40:37 | INFO | Created: target_gap (range: -1030 to 40)
+2025-12-20 15:40:37 | INFO | Date-time features added: years_to_end_target, years_to_interim_target, target_gap
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Date-Time Feature Engineering (0.00s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Date-Time Feature Engineering
+2025-12-20 15:40:37 | INFO | Reference year for temporal features: 2025
+2025-12-20 15:40:37 | INFO | Reference date: 2025-12-20
+2025-12-20 15:40:37 | INFO | Created: years_to_end_target (range: -3 to 40)
+2025-12-20 15:40:37 | INFO | Created: years_to_interim_target (range: -5 to 25)
+2025-12-20 15:40:37 | INFO | Created: target_gap (range: -8 to 41)
+2025-12-20 15:40:37 | INFO | Date-time features added: years_to_end_target, years_to_interim_target, target_gap
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Date-Time Feature Engineering (0.00s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Date-Time Feature Engineering
+2025-12-20 15:40:37 | INFO | Reference year for temporal features: 2025
+2025-12-20 15:40:37 | INFO | Reference date: 2025-12-20
+2025-12-20 15:40:37 | INFO | Created: years_to_end_target (range: -6 to 35)
+2025-12-20 15:40:37 | INFO | Created: years_to_interim_target (range: -6 to 15)
+2025-12-20 15:40:37 | INFO | Created: target_gap (range: -11 to 35)
+2025-12-20 15:40:37 | INFO | Date-time features added: years_to_end_target, years_to_interim_target, target_gap
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Date-Time Feature Engineering (0.00s)
+2025-12-20 15:40:37 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 15:40:37 | INFO | Saved: data/preprocessed/train.csv ((1131, 26))
+2025-12-20 15:40:37 | INFO | Saved: data/preprocessed/val.csv ((377, 26))
+2025-12-20 15:40:37 | INFO | Saved: data/preprocessed/test.csv ((377, 26))
+2025-12-20 15:40:37 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'years_to_end_target', 'years_to_interim_target', 'target_gap', 'Scope_3_coverage']
+2025-12-20 15:40:37 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.02s)
+2025-12-20 15:40:37 | INFO | ======================================================================
+2025-12-20 15:40:37 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 15:40:37 | INFO | ======================================================================
+2025-12-20 15:49:46 | INFO | ======================================================================
+2025-12-20 15:49:46 | INFO | LOGGING SESSION STARTED: 2025-12-20T15:49:46.993386
+2025-12-20 15:49:46 | INFO | ======================================================================
+2025-12-20 15:49:46 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 15:49:46 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 15:49:46 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 15:49:46 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 15:49:47 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 15:49:47 | INFO | Data integrity verified ✓
+2025-12-20 15:49:47 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 15:49:47 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 15:49:47 | INFO | Raw Data missing values: 151072
+2025-12-20 15:49:47 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Load Raw Data (0.15s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 15:49:47 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 15:49:47 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 15:49:47 | INFO |   Details: Kept 26 columns
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Filter to Companies (0.00s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 15:49:47 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 15:49:47 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 15:49:47 | INFO | Converted Employees to numeric
+2025-12-20 15:49:47 | INFO | Dropped 193 rows with missing target
+2025-12-20 15:49:47 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 15:49:47 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 15:49:47 | INFO |   Before: (2086, 26) → After: (1885, 25)
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 15:49:47 | INFO | Features: 22 columns
+2025-12-20 15:49:47 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 366, 'No': 347}
+2025-12-20 15:49:47 | INFO | Training set:   1131 rows (60.0%)
+2025-12-20 15:49:47 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 15:49:47 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.00s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 15:49:47 | INFO | Imputation stats calculated for 4 numeric, 17 categorical columns
+2025-12-20 15:49:47 | INFO | Grouping by: Industry
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 15:49:47 | INFO | Train: 1043 → 0 missing values
+2025-12-20 15:49:47 | INFO | Val: 365 → 0 missing values
+2025-12-20 15:49:47 | INFO | Test: 352 → 0 missing values
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Apply Imputation (0.11s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 15:49:47 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:49:47 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:49:47 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:49:47 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:49:47 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:49:47 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Date-Time Feature Engineering
+2025-12-20 15:49:47 | INFO | Created: target_gap (range: -1030 to 40)
+2025-12-20 15:49:47 | INFO | Date-time feature added: target_gap (gap between end and interim targets)
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Date-Time Feature Engineering (0.00s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Date-Time Feature Engineering
+2025-12-20 15:49:47 | INFO | Created: target_gap (range: -8 to 41)
+2025-12-20 15:49:47 | INFO | Date-time feature added: target_gap (gap between end and interim targets)
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Date-Time Feature Engineering (0.00s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Date-Time Feature Engineering
+2025-12-20 15:49:47 | INFO | Created: target_gap (range: -11 to 35)
+2025-12-20 15:49:47 | INFO | Date-time feature added: target_gap (gap between end and interim targets)
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Date-Time Feature Engineering (0.00s)
+2025-12-20 15:49:47 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 15:49:47 | INFO | Saved: data/preprocessed/train.csv ((1131, 24))
+2025-12-20 15:49:47 | INFO | Saved: data/preprocessed/val.csv ((377, 24))
+2025-12-20 15:49:47 | INFO | Saved: data/preprocessed/test.csv ((377, 24))
+2025-12-20 15:49:47 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'target_gap', 'Scope_3_coverage']
+2025-12-20 15:49:47 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.02s)
+2025-12-20 15:49:47 | INFO | ======================================================================
+2025-12-20 15:49:47 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 15:49:47 | INFO | ======================================================================
+2025-12-20 15:52:46 | INFO | ======================================================================
+2025-12-20 15:52:46 | INFO | LOGGING SESSION STARTED: 2025-12-20T15:52:46.998015
+2025-12-20 15:52:46 | INFO | ======================================================================
+2025-12-20 15:52:46 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 15:52:46 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 15:52:46 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 15:52:46 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 15:52:47 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 15:52:47 | INFO | Data integrity verified ✓
+2025-12-20 15:52:47 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 15:52:47 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 15:52:47 | INFO | Raw Data missing values: 151072
+2025-12-20 15:52:47 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Load Raw Data (0.15s)
+2025-12-20 15:52:47 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 15:52:47 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 15:52:47 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 15:52:47 | INFO |   Details: Kept 26 columns
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Filter to Companies (0.00s)
+2025-12-20 15:52:47 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 15:52:47 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 15:52:47 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 15:52:47 | INFO | Converted Employees to numeric
+2025-12-20 15:52:47 | INFO | Dropped 193 rows with missing target
+2025-12-20 15:52:47 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 15:52:47 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 15:52:47 | INFO |   Before: (2086, 26) → After: (1885, 25)
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 15:52:47 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 15:52:47 | INFO | Features: 22 columns
+2025-12-20 15:52:47 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 366, 'No': 347}
+2025-12-20 15:52:47 | INFO | Training set:   1131 rows (60.0%)
+2025-12-20 15:52:47 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 15:52:47 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.00s)
+2025-12-20 15:52:47 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 15:52:47 | INFO | Imputation stats calculated for 4 numeric, 17 categorical columns
+2025-12-20 15:52:47 | INFO | Grouping by: Industry
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 15:52:47 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 15:52:47 | INFO | Train: 1043 → 0 missing values
+2025-12-20 15:52:47 | INFO | Val: 365 → 0 missing values
+2025-12-20 15:52:47 | INFO | Test: 352 → 0 missing values
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Apply Imputation (0.11s)
+2025-12-20 15:52:47 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 15:52:47 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:52:47 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:52:47 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:52:47 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:52:47 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 15:52:47 | INFO | Log transformed: Employees → log_employees
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 15:52:47 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 15:52:47 | INFO | Saved: data/preprocessed/train.csv ((1131, 23))
+2025-12-20 15:52:47 | INFO | Saved: data/preprocessed/val.csv ((377, 23))
+2025-12-20 15:52:47 | INFO | Saved: data/preprocessed/test.csv ((377, 23))
+2025-12-20 15:52:47 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 15:52:47 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.02s)
+2025-12-20 15:52:47 | INFO | ======================================================================
+2025-12-20 15:52:47 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 15:52:47 | INFO | ======================================================================
+2025-12-20 16:31:30 | INFO | ======================================================================
+2025-12-20 16:31:30 | INFO | LOGGING SESSION STARTED: 2025-12-20T16:31:30.094446
+2025-12-20 16:31:30 | INFO | ======================================================================
+2025-12-20 16:31:30 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 16:31:30 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 16:31:30 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 16:31:30 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 16:31:30 | INFO | Data integrity verified ✓
+2025-12-20 16:31:30 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 16:31:30 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 16:31:30 | INFO | Raw Data missing values: 151072
+2025-12-20 16:31:30 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Load Raw Data (0.25s)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 16:31:30 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 16:31:30 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 16:31:30 | INFO |   Details: Kept 26 columns
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Filter to Companies (0.00s)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 16:31:30 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 16:31:30 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 16:31:30 | INFO | Converted Employees to numeric
+2025-12-20 16:31:30 | INFO | Dropped 193 rows with missing target
+2025-12-20 16:31:30 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 16:31:30 | INFO | Dropped 1 rows with invalid End_target_year (outside 2000-2100)
+2025-12-20 16:31:30 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 16:31:30 | INFO |   Before: (2086, 26) → After: (1884, 25)
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 16:31:30 | INFO | Features: 22 columns
+2025-12-20 16:31:30 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 365, 'No': 347}
+2025-12-20 16:31:30 | INFO | Training set:   1130 rows (60.0%)
+2025-12-20 16:31:30 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 16:31:30 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.00s)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 16:31:30 | INFO | Imputation stats calculated for 4 numeric, 17 categorical columns
+2025-12-20 16:31:30 | INFO | Grouping by: Industry
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 16:31:30 | INFO | Train: 1056 → 0 missing values
+2025-12-20 16:31:30 | INFO | Val: 363 → 0 missing values
+2025-12-20 16:31:30 | INFO | Test: 340 → 0 missing values
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Apply Imputation (0.16s)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 16:31:30 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 16:31:30 | INFO | Log transformed: Employees → log_employees
+2025-12-20 16:31:30 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 16:31:30 | INFO | Log transformed: Employees → log_employees
+2025-12-20 16:31:30 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 16:31:30 | INFO | Log transformed: Employees → log_employees
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 16:31:30 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 16:31:30 | INFO | Saved: data/interim/train.csv ((1130, 23))
+2025-12-20 16:31:30 | INFO | Saved: data/interim/val.csv ((377, 23))
+2025-12-20 16:31:30 | INFO | Saved: data/interim/test.csv ((377, 23))
+2025-12-20 16:31:30 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 16:31:30 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.02s)
+2025-12-20 16:31:30 | INFO | ======================================================================
+2025-12-20 16:31:30 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 16:31:30 | INFO | ======================================================================
+2025-12-20 16:44:06 | INFO | ======================================================================
+2025-12-20 16:44:06 | INFO | LOGGING SESSION STARTED: 2025-12-20T16:44:06.390968
+2025-12-20 16:44:06 | INFO | ======================================================================
+2025-12-20 16:44:06 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 16:44:06 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 16:44:06 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 16:44:06 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 16:44:06 | INFO | Data integrity verified ✓
+2025-12-20 16:44:06 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 16:44:06 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 16:44:06 | INFO | Raw Data missing values: 151072
+2025-12-20 16:44:06 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Load Raw Data (0.17s)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 16:44:06 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 16:44:06 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 16:44:06 | INFO |   Details: Kept 26 columns
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Filter to Companies (0.00s)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 16:44:06 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 16:44:06 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 16:44:06 | INFO | Converted Employees to numeric
+2025-12-20 16:44:06 | INFO | Dropped 193 rows with missing target
+2025-12-20 16:44:06 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 16:44:06 | INFO | Dropped 1 rows with invalid End_target_year (outside 2000-2100)
+2025-12-20 16:44:06 | INFO | Dropped 1 rows with extreme revenue (>$1 trillion)
+2025-12-20 16:44:06 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 16:44:06 | INFO |   Before: (2086, 26) → After: (1883, 25)
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 16:44:06 | INFO | Features: 22 columns
+2025-12-20 16:44:06 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 364, 'No': 347}
+2025-12-20 16:44:06 | INFO | Training set:   1129 rows (60.0%)
+2025-12-20 16:44:06 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 16:44:06 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.01s)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 16:44:06 | INFO | Imputation stats calculated for 4 numeric, 17 categorical columns
+2025-12-20 16:44:06 | INFO | Grouping by: Industry
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.03s)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 16:44:06 | INFO | Train: 1043 → 0 missing values
+2025-12-20 16:44:06 | INFO | Val: 357 → 0 missing values
+2025-12-20 16:44:06 | INFO | Test: 359 → 0 missing values
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Apply Imputation (0.12s)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 16:44:06 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 16:44:06 | INFO | Log transformed: Employees → log_employees
+2025-12-20 16:44:06 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 16:44:06 | INFO | Log transformed: Employees → log_employees
+2025-12-20 16:44:06 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 16:44:06 | INFO | Log transformed: Employees → log_employees
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 16:44:06 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 16:44:06 | INFO | Saved: data/interim/train.csv ((1129, 23))
+2025-12-20 16:44:06 | INFO | Saved: data/interim/val.csv ((377, 23))
+2025-12-20 16:44:06 | INFO | Saved: data/interim/test.csv ((377, 23))
+2025-12-20 16:44:06 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 16:44:06 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.01s)
+2025-12-20 16:44:06 | INFO | ======================================================================
+2025-12-20 16:44:06 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 16:44:06 | INFO | ======================================================================
+2025-12-20 17:50:23 | INFO | ======================================================================
+2025-12-20 17:50:23 | INFO | LOGGING SESSION STARTED: 2025-12-20T17:50:23.056568
+2025-12-20 17:50:23 | INFO | ======================================================================
+2025-12-20 17:50:23 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 17:50:23 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 17:50:23 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 17:50:23 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 17:50:23 | INFO | Data integrity verified ✓
+2025-12-20 17:50:23 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 17:50:23 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 17:50:23 | INFO | Raw Data missing values: 151072
+2025-12-20 17:50:23 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Load Raw Data (0.47s)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 17:50:23 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 17:50:23 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 17:50:23 | INFO |   Details: Kept 26 columns
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Filter to Companies (0.01s)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 17:50:23 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 17:50:23 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 17:50:23 | INFO | Converted Employees to numeric
+2025-12-20 17:50:23 | INFO | Dropped 193 rows with missing target
+2025-12-20 17:50:23 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 17:50:23 | INFO | Dropped 1 rows with invalid End_target_year (outside 2000-2100)
+2025-12-20 17:50:23 | INFO | Dropped 1 rows with extreme revenue (>$1 trillion)
+2025-12-20 17:50:23 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 17:50:23 | INFO |   Before: (2086, 26) → After: (1883, 25)
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Data Cleaning (0.04s)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 17:50:23 | INFO | Features: 22 columns
+2025-12-20 17:50:23 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 364, 'No': 347}
+2025-12-20 17:50:23 | INFO | Training set:   1129 rows (60.0%)
+2025-12-20 17:50:23 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 17:50:23 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.02s)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 17:50:23 | INFO | Imputation stats calculated for 4 numeric, 17 categorical columns
+2025-12-20 17:50:23 | INFO | Grouping by: Industry
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.07s)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 17:50:23 | INFO | Train: 1043 → 0 missing values
+2025-12-20 17:50:23 | INFO | Val: 357 → 0 missing values
+2025-12-20 17:50:23 | INFO | Test: 359 → 0 missing values
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Apply Imputation (0.27s)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 17:50:23 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 17:50:23 | INFO | Log transformed: Employees → log_employees
+2025-12-20 17:50:23 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 17:50:23 | INFO | Log transformed: Employees → log_employees
+2025-12-20 17:50:23 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 17:50:23 | INFO | Log transformed: Employees → log_employees
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Log Transforms (0.01s)
+2025-12-20 17:50:23 | INFO | No scale_columns in config; defaulting to: ['log_revenue', 'log_employees']
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Standard Scaling
+2025-12-20 17:50:23 | INFO | Scaled log_revenue: mean=22.36, std=3.74
+2025-12-20 17:50:23 | INFO | Scaled log_employees: mean=9.98, std=1.53
+2025-12-20 17:50:23 | INFO | Saved scaler to: models/scaler.joblib
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Standard Scaling (0.01s)
+2025-12-20 17:50:23 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 17:50:23 | INFO | Saved: data/interim/train.csv ((1129, 23))
+2025-12-20 17:50:23 | INFO | Saved: data/interim/val.csv ((377, 23))
+2025-12-20 17:50:23 | INFO | Saved: data/interim/test.csv ((377, 23))
+2025-12-20 17:50:23 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 17:50:23 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.03s)
+2025-12-20 17:50:23 | INFO | ======================================================================
+2025-12-20 17:50:23 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 17:50:23 | INFO | ======================================================================
+2025-12-20 18:30:03 | INFO | ======================================================================
+2025-12-20 18:30:03 | INFO | LOGGING SESSION STARTED: 2025-12-20T18:30:03.045995
+2025-12-20 18:30:03 | INFO | ======================================================================
+2025-12-20 18:30:03 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 18:30:03 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 18:30:03 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 18:30:03 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 18:30:03 | INFO | Data integrity verified ✓
+2025-12-20 18:30:03 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 18:30:03 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 18:30:03 | INFO | Raw Data missing values: 151072
+2025-12-20 18:30:03 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Load Raw Data (0.16s)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 18:30:03 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 18:30:03 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 18:30:03 | INFO |   Details: Kept 26 columns
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Filter to Companies (0.01s)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 18:30:03 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 18:30:03 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 18:30:03 | INFO | Converted Employees to numeric
+2025-12-20 18:30:03 | INFO | Dropped 193 rows with missing target
+2025-12-20 18:30:03 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 18:30:03 | INFO | Dropped 1 rows with invalid End_target_year (outside 2000-2100)
+2025-12-20 18:30:03 | INFO | Dropped 1 rows with extreme revenue (>$1 trillion)
+2025-12-20 18:30:03 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 18:30:03 | INFO |   Before: (2086, 26) → After: (1883, 25)
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 18:30:03 | INFO | DROPPED due to target leakage: ['Scope_1_coverage', 'Scope_2_coverage']
+2025-12-20 18:30:03 | INFO | Features: 20 columns
+2025-12-20 18:30:03 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 364, 'No': 347}
+2025-12-20 18:30:03 | INFO | Training set:   1129 rows (60.0%)
+2025-12-20 18:30:03 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 18:30:03 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.00s)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 18:30:03 | INFO | Imputation stats calculated for 4 numeric, 15 categorical columns
+2025-12-20 18:30:03 | INFO | Grouping by: Industry
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 18:30:03 | INFO | Train: 1043 → 0 missing values
+2025-12-20 18:30:03 | INFO | Val: 357 → 0 missing values
+2025-12-20 18:30:03 | INFO | Test: 359 → 0 missing values
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Apply Imputation (0.11s)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 18:30:03 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 18:30:03 | INFO | Log transformed: Employees → log_employees
+2025-12-20 18:30:03 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 18:30:03 | INFO | Log transformed: Employees → log_employees
+2025-12-20 18:30:03 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 18:30:03 | INFO | Log transformed: Employees → log_employees
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 18:30:03 | INFO | No scale_columns in config; defaulting to: ['log_revenue', 'log_employees']
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Standard Scaling
+2025-12-20 18:30:03 | INFO | Scaled log_revenue: mean=22.36, std=3.74
+2025-12-20 18:30:03 | INFO | Scaled log_employees: mean=9.98, std=1.53
+2025-12-20 18:30:03 | INFO | Saved scaler to: models/scaler.joblib
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Standard Scaling (0.00s)
+2025-12-20 18:30:03 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 18:30:03 | INFO | Saved: data/interim/train.csv ((1129, 21))
+2025-12-20 18:30:03 | INFO | Saved: data/interim/val.csv ((377, 21))
+2025-12-20 18:30:03 | INFO | Saved: data/interim/test.csv ((377, 21))
+2025-12-20 18:30:03 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 18:30:03 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.01s)
+2025-12-20 18:30:03 | INFO | ======================================================================
+2025-12-20 18:30:03 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 18:30:03 | INFO | ======================================================================
+2025-12-20 22:54:06 | INFO | ======================================================================
+2025-12-20 22:54:06 | INFO | LOGGING SESSION STARTED: 2025-12-20T22:54:06.779070
+2025-12-20 22:54:06 | INFO | ======================================================================
+2025-12-20 22:54:06 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 22:54:06 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 22:54:06 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 22:54:06 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 22:54:06 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 22:54:06 | INFO | Data integrity verified ✓
+2025-12-20 22:54:06 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 22:54:06 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 22:54:06 | INFO | Raw Data missing values: 151072
+2025-12-20 22:54:06 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 22:54:06 | INFO | ✓ COMPLETED: Load Raw Data (0.10s)
+2025-12-20 22:54:06 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 22:54:06 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 22:54:06 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 22:54:06 | INFO |   Details: Kept 26 columns
+2025-12-20 22:54:06 | INFO | ✓ COMPLETED: Filter to Companies (0.00s)
+2025-12-20 22:54:06 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 22:54:06 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 22:54:06 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 22:54:06 | INFO | Converted Employees to numeric
+2025-12-20 22:54:06 | INFO | Dropped 193 rows with missing target
+2025-12-20 22:54:06 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 22:54:06 | INFO | Dropped 1 rows with invalid End_target_year (outside 2000-2100)
+2025-12-20 22:54:06 | INFO | Dropped 1 rows with extreme revenue (>$1 trillion)
+2025-12-20 22:54:06 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 22:54:06 | INFO |   Before: (2086, 26) → After: (1883, 25)
+2025-12-20 22:54:06 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 22:54:06 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 22:54:06 | INFO | DROPPED due to target leakage: ['Scope_1_coverage', 'Scope_2_coverage']
+2025-12-20 22:54:06 | INFO | Features: 20 columns
+2025-12-20 22:54:06 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 364, 'No': 347}
+2025-12-20 22:54:06 | INFO | Training set:   1129 rows (60.0%)
+2025-12-20 22:54:06 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 22:54:06 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 22:54:06 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.00s)
+2025-12-20 22:54:06 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 22:54:06 | INFO | Imputation stats calculated for 4 numeric, 15 categorical columns
+2025-12-20 22:54:06 | INFO | Grouping by: Industry
+2025-12-20 22:54:06 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 22:54:06 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 22:54:06 | INFO | Train: 1043 → 0 missing values
+2025-12-20 22:54:07 | INFO | Val: 357 → 0 missing values
+2025-12-20 22:54:07 | INFO | Test: 359 → 0 missing values
+2025-12-20 22:54:07 | INFO | ✓ COMPLETED: Apply Imputation (0.12s)
+2025-12-20 22:54:07 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 22:54:07 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 22:54:07 | INFO | Log transformed: Employees → log_employees
+2025-12-20 22:54:07 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 22:54:07 | INFO | Log transformed: Employees → log_employees
+2025-12-20 22:54:07 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 22:54:07 | INFO | Log transformed: Employees → log_employees
+2025-12-20 22:54:07 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 22:54:07 | INFO | No scale_columns in config; defaulting to: ['log_revenue', 'log_employees']
+2025-12-20 22:54:07 | INFO | ▶ STARTING: Standard Scaling
+2025-12-20 22:54:07 | INFO | Scaled log_revenue: mean=22.36, std=3.74
+2025-12-20 22:54:07 | INFO | Scaled log_employees: mean=9.98, std=1.53
+2025-12-20 22:54:07 | INFO | Saved scaler to: models/scaler.joblib
+2025-12-20 22:54:07 | INFO | ✓ COMPLETED: Standard Scaling (0.00s)
+2025-12-20 22:54:07 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 22:54:07 | INFO | Saved: data/interim/train.csv ((1129, 21))
+2025-12-20 22:54:07 | INFO | Saved: data/interim/val.csv ((377, 21))
+2025-12-20 22:54:07 | INFO | Saved: data/interim/test.csv ((377, 21))
+2025-12-20 22:54:07 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 22:54:07 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.01s)
+2025-12-20 22:54:07 | INFO | ======================================================================
+2025-12-20 22:54:07 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 22:54:07 | INFO | ======================================================================
+2025-12-20 23:01:50 | INFO | ======================================================================
+2025-12-20 23:01:50 | INFO | LOGGING SESSION STARTED: 2025-12-20T23:01:50.048552
+2025-12-20 23:01:50 | INFO | ======================================================================
+2025-12-20 23:01:50 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 23:01:50 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 23:01:50 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 23:01:50 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 23:01:50 | INFO | Data integrity verified ✓
+2025-12-20 23:01:50 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 23:01:50 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 23:01:50 | INFO | Raw Data missing values: 151072
+2025-12-20 23:01:50 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Load Raw Data (0.11s)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 23:01:50 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 23:01:50 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 23:01:50 | INFO |   Details: Kept 26 columns
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Filter to Companies (0.00s)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 23:01:50 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 23:01:50 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 23:01:50 | INFO | Converted Employees to numeric
+2025-12-20 23:01:50 | INFO | Dropped 193 rows with missing target
+2025-12-20 23:01:50 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 23:01:50 | INFO | Dropped 1 rows with invalid End_target_year (outside 2000-2100)
+2025-12-20 23:01:50 | INFO | Dropped 1 rows with extreme revenue (>$1 trillion)
+2025-12-20 23:01:50 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 23:01:50 | INFO |   Before: (2086, 26) → After: (1883, 25)
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 23:01:50 | INFO | DROPPED due to target leakage: ['Scope_1_coverage', 'Scope_2_coverage']
+2025-12-20 23:01:50 | INFO | Features: 20 columns
+2025-12-20 23:01:50 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 364, 'No': 347}
+2025-12-20 23:01:50 | INFO | Training set:   1129 rows (60.0%)
+2025-12-20 23:01:50 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 23:01:50 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.00s)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 23:01:50 | INFO | Imputation stats calculated for 4 numeric, 15 categorical columns
+2025-12-20 23:01:50 | INFO | Grouping by: Industry
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 23:01:50 | INFO |   Pre-imputation missingness by column:
+2025-12-20 23:01:50 | INFO |     End_target: 1 (0.1%)
+2025-12-20 23:01:50 | INFO |     End_target_year: 143 (12.7%)
+2025-12-20 23:01:50 | INFO |     Status_of_end_target: 143 (12.7%)
+2025-12-20 23:01:50 | INFO |     Interim_target: 25 (2.2%)
+2025-12-20 23:01:50 | INFO |     Interim_target_year: 378 (33.5%)
+2025-12-20 23:01:50 | INFO |     GHGs_covered: 35 (3.1%)
+2025-12-20 23:01:50 | INFO |     Published_plan: 23 (2.0%)
+2025-12-20 23:01:50 | INFO |     Reporting_mechanism: 16 (1.4%)
+2025-12-20 23:01:50 | INFO |     Accountability_delivery: 23 (2.0%)
+2025-12-20 23:01:50 | INFO |     Carbon_credits: 39 (3.5%)
+2025-12-20 23:01:50 | INFO |     Separate_removal_target: 51 (4.5%)
+2025-12-20 23:01:50 | INFO |     Planning_removals: 39 (3.5%)
+2025-12-20 23:01:50 | INFO |     Historical_emissions: 59 (5.2%)
+2025-12-20 23:01:50 | INFO |     Company_annual_revenue: 3 (0.3%)
+2025-12-20 23:01:50 | INFO |     Employees: 65 (5.8%)
+2025-12-20 23:01:50 | INFO | Train: 1043 → 0 missing values
+2025-12-20 23:01:50 | INFO | Val: 357 → 0 missing values
+2025-12-20 23:01:50 | INFO | Test: 359 → 0 missing values
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Apply Imputation (0.12s)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 23:01:50 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 23:01:50 | INFO | Log transformed: Employees → log_employees
+2025-12-20 23:01:50 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 23:01:50 | INFO | Log transformed: Employees → log_employees
+2025-12-20 23:01:50 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 23:01:50 | INFO | Log transformed: Employees → log_employees
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 23:01:50 | INFO | No scale_columns in config; defaulting to: ['log_revenue', 'log_employees']
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Standard Scaling
+2025-12-20 23:01:50 | INFO | Scaled log_revenue: mean=22.36, std=3.74
+2025-12-20 23:01:50 | INFO | Scaled log_employees: mean=9.98, std=1.53
+2025-12-20 23:01:50 | INFO | Saved scaler to: models/scaler.joblib
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Standard Scaling (0.00s)
+2025-12-20 23:01:50 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 23:01:50 | INFO | Saved: data/interim/train.csv ((1129, 21))
+2025-12-20 23:01:50 | INFO | Saved: data/interim/val.csv ((377, 21))
+2025-12-20 23:01:50 | INFO | Saved: data/interim/test.csv ((377, 21))
+2025-12-20 23:01:50 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 23:01:50 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.01s)
+2025-12-20 23:01:50 | INFO | ======================================================================
+2025-12-20 23:01:50 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 23:01:50 | INFO | ======================================================================
+2025-12-20 23:07:48 | INFO | ======================================================================
+2025-12-20 23:07:48 | INFO | LOGGING SESSION STARTED: 2025-12-20T23:07:48.140761
+2025-12-20 23:07:48 | INFO | ======================================================================
+2025-12-20 23:07:48 | INFO | PREPROCESSING PIPELINE STARTED
+2025-12-20 23:07:48 | INFO | Configuration loaded from: RUN_CONFIG.json
+2025-12-20 23:07:48 | INFO | Random seeds set to 42 (random, numpy, sklearn)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Load Raw Data
+2025-12-20 23:07:48 | INFO | ✅ Checksum verified: net_zero_tracker.csv
+2025-12-20 23:07:48 | INFO | Data integrity verified ✓
+2025-12-20 23:07:48 | INFO | Raw Data shape: (4183, 66)
+2025-12-20 23:07:48 | INFO | Raw Data columns: ['Last_updated', 'ID_Code', 'ISIN_ID', 'Name', 'Country', 'Geographic_region', 'Entity_type', 'Private_company', 'End_target', 'End_target_percentage_reduction', 'End_target_baseline_year', 'End_target_year', 'Status_of_end_target', 'Date_of_last_status_update', 'End_target_text', 'End_target_source_url', 'Interim_target', 'Interim_target_year', 'Interim_target_percentage_reduction', 'Interim_target_baseline_year', 'Interim_target_text', 'Targets_notes', 'GHGs_covered', 'Scope_1_coverage', 'Scope_2_coverage', 'Scope_3_coverage', 'Coverage_notes', 'Published_plan', 'Published_plan_measures', 'Reporting_mechanism', 'International_equity_just_transition', 'Accountability_delivery', 'Governance_notes', 'Carbon_credits', 'Carbon_credits_conditions', 'Max_emission_offset', 'Carbon_credits_conditions_other', 'Separate_removal_target', 'Planning_removals', 'Removals_and_credits_notes', 'Territorial_emissions', 'Consumption_emissions', 'International_aviation', 'International_shipping', 'Historical_emissions', 'Race_to_zero_member', 'GDP', 'GDP_year', 'Population', 'Population_year', 'Company_annual_revenue', 'Industry', 'Employees', 'GHG_emissions', 'GHG_emissions_year', 'GHG_emissions_source', 'End_target_intensity_unit', 'end_target_baseyear_emissions', 'End_target_target_emissions', 'End_target_bau_emissions', 'End_target_other', 'Interim_target_intensity_unit', 'Interim_target_baseyear_emissions', 'Interim_target_target_emissions', 'Interim_target_bau_emissions', 'Interim_target_other']
+2025-12-20 23:07:48 | INFO | Raw Data missing values: 151072
+2025-12-20 23:07:48 | INFO | Raw Data dtypes: {dtype('O'): 56, dtype('float64'): 10}
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Load Raw Data (0.11s)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Filter to Companies
+2025-12-20 23:07:48 | INFO | TRANSFORM: Filter to Companies
+2025-12-20 23:07:48 | INFO |   Before: (4183, 66) → After: (2086, 26)
+2025-12-20 23:07:48 | INFO |   Details: Kept 26 columns
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Filter to Companies (0.00s)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Data Cleaning
+2025-12-20 23:07:48 | INFO | Dropping columns with >50% missing: ['GHG_emissions']
+2025-12-20 23:07:48 | INFO | Converted Company_annual_revenue to numeric
+2025-12-20 23:07:48 | INFO | Converted Employees to numeric
+2025-12-20 23:07:48 | INFO | Dropped 193 rows with missing target
+2025-12-20 23:07:48 | INFO | Dropped 8 rows with missing Industry
+2025-12-20 23:07:48 | INFO | Dropped 1 rows with invalid End_target_year (outside 2000-2100)
+2025-12-20 23:07:48 | INFO | Dropped 1 rows with extreme revenue (>$1 trillion)
+2025-12-20 23:07:48 | INFO | TRANSFORM: Data Cleaning
+2025-12-20 23:07:48 | INFO |   Before: (2086, 26) → After: (1883, 25)
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Data Cleaning (0.01s)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Train/Val/Test Split
+2025-12-20 23:07:48 | INFO | DROPPED due to target leakage: ['Scope_1_coverage', 'Scope_2_coverage']
+2025-12-20 23:07:48 | INFO | Features: 20 columns
+2025-12-20 23:07:48 | INFO | Target distribution: {'Yes': 760, 'Not Specified': 412, 'Partial': 364, 'No': 347}
+2025-12-20 23:07:48 | INFO | Training set:   1129 rows (60.0%)
+2025-12-20 23:07:48 | INFO | Validation set: 377 rows (20.0%)
+2025-12-20 23:07:48 | INFO | Test set:       377 rows (20.0%)
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Train/Val/Test Split (0.00s)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Calculate Imputation Stats
+2025-12-20 23:07:48 | INFO | Imputation stats calculated for 4 numeric, 15 categorical columns
+2025-12-20 23:07:48 | INFO | Grouping by: Industry
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Calculate Imputation Stats (0.02s)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Apply Imputation
+2025-12-20 23:07:48 | INFO |   Pre-imputation missingness by column:
+2025-12-20 23:07:48 | INFO |     End_target: 1 (0.1%)
+2025-12-20 23:07:48 | INFO |     End_target_year: 143 (12.7%)
+2025-12-20 23:07:48 | INFO |     Status_of_end_target: 143 (12.7%)
+2025-12-20 23:07:48 | INFO |     Interim_target: 25 (2.2%)
+2025-12-20 23:07:48 | INFO |     Interim_target_year: 378 (33.5%)
+2025-12-20 23:07:48 | INFO |     GHGs_covered: 35 (3.1%)
+2025-12-20 23:07:48 | INFO |     Published_plan: 23 (2.0%)
+2025-12-20 23:07:48 | INFO |     Reporting_mechanism: 16 (1.4%)
+2025-12-20 23:07:48 | INFO |     Accountability_delivery: 23 (2.0%)
+2025-12-20 23:07:48 | INFO |     Carbon_credits: 39 (3.5%)
+2025-12-20 23:07:48 | INFO |     Separate_removal_target: 51 (4.5%)
+2025-12-20 23:07:48 | INFO |     Planning_removals: 39 (3.5%)
+2025-12-20 23:07:48 | INFO |     Historical_emissions: 59 (5.2%)
+2025-12-20 23:07:48 | INFO |     Company_annual_revenue: 3 (0.3%)
+2025-12-20 23:07:48 | INFO |     Employees: 65 (5.8%)
+2025-12-20 23:07:48 | INFO |   Created Interim_target_year_missing indicator: 378 rows marked as missing
+2025-12-20 23:07:48 | INFO | Train: 1043 → 0 missing values
+2025-12-20 23:07:48 | INFO | Val: 357 → 0 missing values
+2025-12-20 23:07:48 | INFO | Test: 359 → 0 missing values
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Apply Imputation (0.12s)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Log Transforms
+2025-12-20 23:07:48 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 23:07:48 | INFO | Log transformed: Employees → log_employees
+2025-12-20 23:07:48 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 23:07:48 | INFO | Log transformed: Employees → log_employees
+2025-12-20 23:07:48 | INFO | Log transformed: Company_annual_revenue → log_revenue
+2025-12-20 23:07:48 | INFO | Log transformed: Employees → log_employees
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Log Transforms (0.00s)
+2025-12-20 23:07:48 | INFO | No scale_columns in config; defaulting to: ['log_revenue', 'log_employees']
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Standard Scaling
+2025-12-20 23:07:48 | INFO | Scaled log_revenue: mean=22.36, std=3.74
+2025-12-20 23:07:48 | INFO | Scaled log_employees: mean=9.98, std=1.53
+2025-12-20 23:07:48 | INFO | Saved scaler to: models/scaler.joblib
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Standard Scaling (0.00s)
+2025-12-20 23:07:48 | INFO | ▶ STARTING: Save Preprocessed Data
+2025-12-20 23:07:48 | INFO | Saved: data/interim/train.csv ((1129, 22))
+2025-12-20 23:07:48 | INFO | Saved: data/interim/val.csv ((377, 22))
+2025-12-20 23:07:48 | INFO | Saved: data/interim/test.csv ((377, 22))
+2025-12-20 23:07:48 | INFO | Final columns: ['Country', 'Geographic_region', 'Private_company', 'End_target', 'End_target_year', 'Status_of_end_target', 'Interim_target', 'Interim_target_year', 'GHGs_covered', 'Published_plan', 'Reporting_mechanism', 'Accountability_delivery', 'Carbon_credits', 'Separate_removal_target', 'Planning_removals', 'Historical_emissions', 'Race_to_zero_member', 'Industry', 'Interim_target_year_missing', 'log_revenue', 'log_employees', 'Scope_3_coverage']
+2025-12-20 23:07:48 | INFO | ✓ COMPLETED: Save Preprocessed Data (0.01s)
+2025-12-20 23:07:48 | INFO | ======================================================================
+2025-12-20 23:07:48 | INFO | PREPROCESSING PIPELINE COMPLETED SUCCESSFULLY
+2025-12-20 23:07:48 | INFO | ======================================================================

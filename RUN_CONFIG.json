@@ -1,0 +1,85 @@
+{
+    "project": "Net Zero Tracker - Scope_3_coverage Classification",
+    "version": "1.0.0",
+    "created_date": "2025-12-20",
+    "last_updated": "2025-12-20",
+    
+    "random_seeds": {
+        "global_seed": 42,
+        "numpy_seed": 42,
+        "sklearn_seed": 42,
+        "description": "All random operations use seed=42 for reproducibility"
+    },
+    
+    "data_config": {
+        "raw_data_path": "data/raw/net_zero_tracker.csv",
+        "preprocessed_dir": "data/interim",
+        "train_file": "train.csv",
+        "val_file": "val.csv",
+        "test_file": "test.csv"
+    },
+    
+    "split_config": {
+        "test_size": 0.2,
+        "val_size": 0.2,
+        "train_size": 0.6,
+        "stratify_by": "Scope_3_coverage"
+    },
+    
+    "preprocessing_config": {
+        "target_column": "Scope_3_coverage",
+        "missing_threshold": 0.5,
+        "imputation_group_column": "Industry",
+        "imputation_strategy_numeric": "group_median",
+        "imputation_strategy_categorical": "group_mode",
+        "country_grouping_threshold": 0.8,
+        "log_transform_columns": ["Company_annual_revenue", "Employees", "GHG_emissions"]
+    },
+    
+    "leakage_columns_dropped": [
+        "Scope_1_coverage",
+        "Scope_2_coverage"
+    ],
+    
+    "feature_encoding": {
+        "ordinal_features": [
+            "Published_plan",
+            "Private_company",
+            "Race_to_zero_member",
+            "Separate_removal_target",
+            "Historical_emissions",
+            "Accountability_delivery",
+            "Carbon_credits",
+            "GHGs_covered",
+            "Reporting_mechanism",
+            "Status_of_end_target",
+            "Planning_removals"
+        ],
+        "nominal_features": [
+            "Country_grouped",
+            "Geographic_region",
+            "Industry",
+            "End_target",
+            "Interim_target"
+        ],
+        "numeric_features": [
+            "End_target_year",
+            "Interim_target_year",
+            "log_revenue",
+            "log_employees"
+        ]
+    },
+    
+    "model_config": {
+        "model_type": "RandomForestClassifier",
+        "n_estimators": 100,
+        "random_state": 42,
+        "resampling_method": "none"
+    },
+    
+    "files_generated": {
+        "preprocessing_log": "logs/preprocess.log",
+        "model_artifacts": "models/",
+        "qa_checklist": "QA_CHECKLIST.md"
+    }
+}

@@ -1,0 +1,210 @@
+{
+  "high_confidence_features": [
+    "Scope_1_coverage",
+    "Scope_2_coverage",
+    "Published_plan",
+    "Race_to_zero_member",
+    "GHGs_covered",
+    "Reporting_mechanism",
+    "End_target",
+    "Country"
+  ],
+  "medium_confidence_features": [
+    "Geographic_region",
+    "End_target_year",
+    "log_employees",
+    "log_revenue",
+    "Interim_target",
+    "Industry",
+    "Status_of_end_target",
+    "Planning_removals",
+    "Private_company",
+    "Accountability_delivery",
+    "Historical_emissions",
+    "Separate_removal_target"
+  ],
+  "low_confidence_features": [
+    "Carbon_credits",
+    "Interim_target_year"
+  ],
+  "mi_scores": [
+    {
+      "Feature": "Scope_1_coverage",
+      "MI_Score": 0.2762219360506164
+    },
+    {
+      "Feature": "Scope_2_coverage",
+      "MI_Score": 0.23735149403846245
+    },
+    {
+      "Feature": "End_target",
+      "MI_Score": 0.16552008117348516
+    },
+    {
+      "Feature": "Published_plan",
+      "MI_Score": 0.09898070432167838
+    },
+    {
+      "Feature": "Country",
+      "MI_Score": 0.0903108765342
+    },
+    {
+      "Feature": "Interim_target",
+      "MI_Score": 0.06385983236587434
+    },
+    {
+      "Feature": "Race_to_zero_member",
+      "MI_Score": 0.05151390096438124
+    },
+    {
+      "Feature": "GHGs_covered",
+      "MI_Score": 0.04186857923015763
+    },
+    {
+      "Feature": "Accountability_delivery",
+      "MI_Score": 0.03353658178617991
+    },
+    {
+      "Feature": "Reporting_mechanism",
+      "MI_Score": 0.027703064924893273
+    },
+    {
+      "Feature": "End_target_year",
+      "MI_Score": 0.027689494244221624
+    },
+    {
+      "Feature": "Status_of_end_target",
+      "MI_Score": 0.021386538748841666
+    },
+    {
+      "Feature": "Geographic_region",
+      "MI_Score": 0.02123559249252871
+    },
+    {
+      "Feature": "Industry",
+      "MI_Score": 0.019202497302133192
+    },
+    {
+      "Feature": "Interim_target_year",
+      "MI_Score": 0.018136174790628345
+    },
+    {
+      "Feature": "Historical_emissions",
+      "MI_Score": 0.01619159720874963
+    },
+    {
+      "Feature": "Planning_removals",
+      "MI_Score": 0.014575938539133304
+    },
+    {
+      "Feature": "Private_company",
+      "MI_Score": 0.009967881589606709
+    },
+    {
+      "Feature": "Carbon_credits",
+      "MI_Score": 0.0003404176318464458
+    },
+    {
+      "Feature": "log_revenue",
+      "MI_Score": 9.589198085668826e-05
+    },
+    {
+      "Feature": "log_employees",
+      "MI_Score": 0.0
+    },
+    {
+      "Feature": "Separate_removal_target",
+      "MI_Score": 0.0
+    }
+  ],
+  "rf_importance": [
+    {
+      "Feature": "Scope_2_coverage",
+      "RF_Importance": 0.13735559905627834
+    },
+    {
+      "Feature": "Scope_1_coverage",
+      "RF_Importance": 0.10152464325495564
+    },
+    {
+      "Feature": "log_employees",
+      "RF_Importance": 0.08657265260130272
+    },
+    {
+      "Feature": "log_revenue",
+      "RF_Importance": 0.08531737008995448
+    },
+    {
+      "Feature": "End_target",
+      "RF_Importance": 0.0651073560073588
+    },
+    {
+      "Feature": "Country",
+      "RF_Importance": 0.061414466029702026
+    },
+    {
+      "Feature": "End_target_year",
+      "RF_Importance": 0.058531043860747124
+    },
+    {
+      "Feature": "Industry",
+      "RF_Importance": 0.04764805350633466
+    },
+    {
+      "Feature": "Planning_removals",
+      "RF_Importance": 0.03970877747882983
+    },
+    {
+      "Feature": "Geographic_region",
+      "RF_Importance": 0.039588700229406665
+    },
+    {
+      "Feature": "Interim_target",
+      "RF_Importance": 0.03765055807759099
+    },
+    {
+      "Feature": "Race_to_zero_member",
+      "RF_Importance": 0.03698751188066685
+    },
+    {
+      "Feature": "Accountability_delivery",
+      "RF_Importance": 0.03505477357044404
+    },
+    {
+      "Feature": "GHGs_covered",
+      "RF_Importance": 0.0349835073556222
+    },
+    {
+      "Feature": "Carbon_credits",
+      "RF_Importance": 0.02866244112965754
+    },
+    {
+      "Feature": "Published_plan",
+      "RF_Importance": 0.0282991141685618
+    },
+    {
+      "Feature": "Interim_target_year",
+      "RF_Importance": 0.026381123939060808
+    },
+    {
+      "Feature": "Status_of_end_target",
+      "RF_Importance": 0.015778711031086586
+    },
+    {
+      "Feature": "Reporting_mechanism",
+      "RF_Importance": 0.0112838446046752
+    },
+    {
+      "Feature": "Historical_emissions",
+      "RF_Importance": 0.009195685529594716
+    },
+    {
+      "Feature": "Separate_removal_target",
+      "RF_Importance": 0.007363712898660044
+    },
+    {
+      "Feature": "Private_company",
+      "RF_Importance": 0.005590353699508842
+    }
+  ]
+}
