@@ -21,12 +21,11 @@ Given the weak predictive power of numeric features, the feature engineering str
 
 2. **Deprioritizing numeric transformations** – Further numeric feature engineering (e.g., polynomial features, binning, PCA) is unlikely to improve model performance given the poor class separability observed. No additional numeric-based features will be engineered.
 
-3. **Interaction features** – An interaction term between `Industry × End_target` will be explored, as different industries may have varying relationships between target commitment type and Scope 3 reporting behavior.
+3. **Interaction features** – An interaction term between `Industry × End_target` will be explored in the future, as different industries may have varying relationships between target commitment type and Scope 3 reporting behavior.
 
 4. **Preserving original year columns** – Engineered temporal features (`years_to_end_target`, `target_gap`) were tested but showed no improvement over raw year values, so the original columns will be retained without transformation.
 
 ---
-
 ## Which external resource supported the learning the most and why?
 
 The **scikit-learn documentation on Isolation Forest** was the most valuable external resource during this EDA. While typical statistical outlier detection methods (IQR, Z-scores) are useful, Isolation Forest provided a multivariate approach that could identify outliers based on combinations of features rather than examining each feature in isolation.
