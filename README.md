@@ -69,11 +69,16 @@ calibration_classification/
 │   ├── logistic_regression_best.joblib
 │   ├── preprocessor_fitted.joblib
 │   └── model_metadata.json
-├── logs/                        # Visualizations and metrics
-├── impact_report.md             # Business-focused documentation
-├── EDA_REPORT_TEMPLATE.md       # Exploratory data analysis report
-├── guide.md                     # Feature engineering guide
-├── MODEL_CARD.md                # Model card
+├── src/
+│   ├── pipeline.py              # Main modeling pipeline
+│   ├── preprocessing_pipeline.py # Data preprocessing functions
+│   └── reproducibility.py       # Reproducibility utilities
+├── logs/                                 # Visualizations and metrics
+├── impact_report.md                      # Business-focused documentation
+├── EDA_REPORT_TEMPLATE.md                # Exploratory data analysis report
+├── guide.md                              # Feature engineering guide
+├── MODEL_CARD_ETHICAL_CONSIDERATIONS.md  # Model card including ethical considerations
+├── other_files                           # other files created during the challenge
 └── README.md
 ```
 
